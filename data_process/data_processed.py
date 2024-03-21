@@ -3,9 +3,9 @@ import csv
 import os
 
 
-# afwffw
+# 处理imu数据
 
-# success
+# 分割出csv中不同sensorid，并按行输出
 def split_list(list):
     temp = []
     index_list = []
@@ -51,6 +51,7 @@ def chage_filename(filename,counter):
         filename = get_unique_filename(get_new_filename(filename),flag)
     return filename
 
+# 写入csv
 def write_csv(data_write):
     for i in range(len(data_write)):
         name = f"{data_write[i][0][0]}.csv"
@@ -60,10 +61,11 @@ def write_csv(data_write):
             a.writerows(data_write[i])
 
 def main():
-    data = pd.read_csv("./111-1-1.csv")
+    data = pd.read_csv("./111-1-1.csv")  # 对应文件
     data = pd.DataFrame(data)
     df = data[['SensorId', ' TimeStamp (s)', ' FrameNumber',' QuatW', ' QuatX', ' QuatY',' QuatZ']]
 
+    # 所需数据
     Sensor = df['SensorId'].to_list()
     time = df[' TimeStamp (s)'].to_list()
     FrameNumber = df[' FrameNumber'].to_list()
@@ -72,6 +74,7 @@ def main():
     QuatY = df[' QuatY'].to_list()
     QuatZ = df[' QuatZ'].to_list()
 
+    # 汇总数据
     data_all = []
     data_all.append(Sensor)
     data_all.append(time)
